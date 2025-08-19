@@ -34,5 +34,17 @@
         public static string AddNewYuvakSabhaAttend = "New yuvak sabha attendance has been added successfully.";
         public static string UpdateNewYuvakSabhaAttend = "yuvak sabha attendance details have been updated successfully.";
         #endregion
+
+        #region :: Evant Detail ::
+        public static string AddNewEvantDetail = "New evant details has been added successfully.";
+        public static string UpdateEvantDetail = "Evant details have been updated successfully.";
+
+        public static string AddNewEvantAreaDetail = "New evant area details has been added successfully.";
+        public static string UpdateEvantAreaDetail = "Evant area details have been updated successfully.";
+
+        public static string AddNewEvantEntryDetail = "New evant entry details has been added successfully.";
+        public static string UpdateEvantEntryDetail = "Evant entry details have been updated successfully.";
+        #endregion
+
     }
 }

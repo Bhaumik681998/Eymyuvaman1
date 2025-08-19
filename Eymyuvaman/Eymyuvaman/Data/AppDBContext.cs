@@ -1,4 +1,5 @@
 ﻿using Eymyuvaman.Model;
+using Eymyuvaman.Model.Evant;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eymyuvaman.Data
@@ -14,5 +15,10 @@ namespace Eymyuvaman.Data
         public DbSet<SabhaSession> SabhaSession { get; set; }
         public DbSet<NewYuvakSabhaAttend> NewYuvakSabhaAttend { get; set; }
         public DbSet<Kishore> Kishore { get; set; }
+        public DbSet<Evant> Evant { get; set; }
+        public DbSet<EvantArea> EvantArea { get; set; }
+        public DbSet<EvantDetial> EvantDetial { get; set; }
+        public DbSet<EvantEntry> EvantEntry { get; set; }
+        public DbSet<EventEntryLog> EventEntryLog { get; set; }
     }
 }

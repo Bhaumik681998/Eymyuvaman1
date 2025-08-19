@@ -20,6 +20,7 @@ namespace Eymyuvaman.Extensions
             services.AddScoped<IYuvakRepository, YuvakService>();
             services.AddScoped<ISabhaSessionRepository, SabhaSessionService>();
             services.AddScoped<INewYuvakSabhaAttendRepository, NewYuvakSabhaAttendService>();
+            services.AddScoped<IEvantRepository, EvantService>();
         }
     }
 }
