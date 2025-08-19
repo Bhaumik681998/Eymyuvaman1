@@ -16,6 +16,10 @@ namespace Eymyuvaman.Extensions
             services.AddHttpClient();
 
             services.AddScoped<IAuthRepository, AuthService>();
+            services.AddScoped<IUserMasterRepository, UsermasterService>();
+            services.AddScoped<IYuvakRepository, YuvakService>();
+            services.AddScoped<ISabhaSessionRepository, SabhaSessionService>();
+            services.AddScoped<INewYuvakSabhaAttendRepository, NewYuvakSabhaAttendService>();
         }
     }
 }

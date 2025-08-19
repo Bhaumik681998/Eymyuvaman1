@@ -10,5 +10,9 @@ namespace Eymyuvaman.Data
 
         }
         public DbSet<UserMaster> UserMaster { get; set; }
+        public DbSet<NewYuvakDetails> NewYuvakDetails { get; set; }
+        public DbSet<SabhaSession> SabhaSession { get; set; }
+        public DbSet<NewYuvakSabhaAttend> NewYuvakSabhaAttend { get; set; }
+        public DbSet<Kishore> Kishore { get; set; }
     }
 }

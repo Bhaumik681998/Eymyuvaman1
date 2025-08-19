@@ -19,5 +19,20 @@
         #region :: User Login ::
         public static string UserLogin = "Login successfully.";
         #endregion
+
+        #region :: Yuvak Detail ::
+        public static string AddNewYuvak = "New yuvak details have been added successfully.";
+        public static string UpdateYuvakDetail = "yuvak details have been updated successfully.";
+        #endregion
+
+        #region :: sabhaSession ::
+        public static string AddSabhaSession = "Sabha detail has been added successfully.";
+        public static string UpdateSabhaSession = "Sabha detail has been updated successfully.";
+        #endregion
+
+        #region :: New yuvak Sabha Attend ::
+        public static string AddNewYuvakSabhaAttend = "New yuvak sabha attendance has been added successfully.";
+        public static string UpdateNewYuvakSabhaAttend = "yuvak sabha attendance details have been updated successfully.";
+        #endregion
     }
 }
