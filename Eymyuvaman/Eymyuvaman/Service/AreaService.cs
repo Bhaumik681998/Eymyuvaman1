@@ -22,6 +22,10 @@ namespace Eymyuvaman.Service
         {
             try
             {
+                var isExistsAreaCode = await _dbContext.Area.FirstOrDefaultAsync(x => x.AreaCode == entity.AreaCode);
+                if (isExistsAreaCode != null)
+                    return new BaseResponse { Success = false, Message = ResponseMessage.AreaCodeAlreadyExists };
+
                 bool isNewArea = false;
                 Area? areaDetail = await _dbContext.Area.FirstOrDefaultAsync(a => a.AreaID == entity.AreaID);
                 if (areaDetail == null)
@@ -40,7 +44,7 @@ namespace Eymyuvaman.Service
                 areaDetail.ImagePath = entity.ImagePath;
                 areaDetail.AreaCode = entity.AreaCode;
                 areaDetail.UserName = entity.UserName;
-                areaDetail.UserPassword = entity.UserPassword;
+                areaDetail.UserPassword = Encrypting.HashPassword(entity.UserPassword ?? string.Empty);
                 areaDetail.UserEmail = entity.UserEmail;
                 areaDetail.UserMobile = entity.UserMobile;
                 areaDetail.Status = entity.Status;
@@ -113,26 +117,26 @@ namespace Eymyuvaman.Service
             try
             {
                 var areaDetails = await (from a in _dbContext.Area
-                                             join z in _dbContext.Zones on a.ZoneID equals z.ZoneID
-                                             join c in _dbContext.City on z.CityId equals c.CityID
-                                             where a.AreaID == AreaId && a.Status == true
-                                             select new AreaDetailVM()
-                                             {
-                                                 AreaID = a.AreaID,
-                                                 ZoneID = a.ZoneID,
-                                                 ZoneHead = z.ZoneHead,
-                                                 CityHead = c.CityHead,
-                                                 AreaName = a.AreaName,
-                                                 Address1 = a.Address1,
-                                                 Address2 = a.Address2,
-                                                 Mandir = a.Mandir,
-                                                 Pincode = a.Pincode,
-                                                 AreaCode = a.AreaCode,
-                                                 UserName = a.UserName,
-                                                 UserEmail = a.UserEmail,
-                                                 UserMobile = a.UserMobile,
-                                                 Status = a.Status
-                                             }).FirstOrDefaultAsync();
+                                         join z in _dbContext.Zones on a.ZoneID equals z.ZoneID
+                                         join c in _dbContext.City on z.CityId equals c.CityID
+                                         where a.AreaID == AreaId && a.Status == true
+                                         select new AreaDetailVM()
+                                         {
+                                             AreaID = a.AreaID,
+                                             ZoneID = a.ZoneID,
+                                             ZoneHead = z.ZoneHead,
+                                             CityHead = c.CityHead,
+                                             AreaName = a.AreaName,
+                                             Address1 = a.Address1,
+                                             Address2 = a.Address2,
+                                             Mandir = a.Mandir,
+                                             Pincode = a.Pincode,
+                                             AreaCode = a.AreaCode,
+                                             UserName = a.UserName,
+                                             UserEmail = a.UserEmail,
+                                             UserMobile = a.UserMobile,
+                                             Status = a.Status
+                                         }).FirstOrDefaultAsync();
 
                 return new BaseResponseObject<AreaDetailVM>
                 {

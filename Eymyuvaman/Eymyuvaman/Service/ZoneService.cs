@@ -68,7 +68,6 @@ namespace Eymyuvaman.Service
                                           CityName = c.CityHead
                                       }).AsNoTracking().ToListAsync();
 
-
                 return new BaseResponseModel<IEnumerable<ZonesDetailVM>>
                 {
                     Success = zoneList.Any(),

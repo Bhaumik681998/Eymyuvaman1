@@ -23,5 +23,6 @@ namespace Eymyuvaman.Data
         public DbSet<City> City { get; set; }
         public DbSet<Zones> Zones { get; set; }
         public DbSet<Area> Area { get; set; }
+        public DbSet<Designation> Designation { get; set; }
     }
 }

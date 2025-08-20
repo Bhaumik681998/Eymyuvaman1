@@ -18,7 +18,7 @@ namespace Eymyuvaman.ViewModel.Area
         public string? UserPassword { get; set; }
         public string? UserEmail { get; set; }
         public string? UserMobile { get; set; }
-        public DateTime? UpdatedDate { get; set; }
         public bool? Status { get; set; }
     }
 }
+

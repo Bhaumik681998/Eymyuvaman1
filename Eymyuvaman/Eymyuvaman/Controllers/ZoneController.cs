@@ -19,7 +19,7 @@ namespace Eymyuvaman.Controllers
         }
 
         [HttpPost("Add-Update-Zone")]
-        public async Task<ActionResult> AddUpdateZone(AddUpdateZonesVM entity)
+        public async Task<ActionResult> AddUpdateZone([FromBody] AddUpdateZonesVM entity)
         {
             var result = await _zoneRepository.AddUpdateZone(entity);
             if (result.Success)

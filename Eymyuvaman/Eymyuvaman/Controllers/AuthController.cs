@@ -19,7 +19,7 @@ namespace Eymyuvaman.Controllers
 
         [AllowAnonymous]
         [HttpPost("User-Login")]
-        public async Task<ActionResult> UserLogin(UserLoginVM entity)
+        public async Task<ActionResult> UserLogin([FromBody] UserLoginVM entity)
         {
             var result = await _authRepository.LoginUser(entity);
             if (result.Success)

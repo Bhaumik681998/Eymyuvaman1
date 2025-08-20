@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Eymyuvaman.Model
+namespace Eymyuvaman.ViewModel.Kishore
 {
-    public class Kishore
+    public class KishoreDetailVM
     {
-        [Key]
         public int KId { get; set; }
         public string? KishoreID { get; set; }
         public int AreaID { get; set; }
@@ -25,7 +24,8 @@ namespace Eymyuvaman.Model
         public string? Hobbies { get; set; }
         public string? Sports { get; set; }
         //public string? ImagePath { get; set; }
-        public string? DesigID { get; set; }
+        public List<string>? DesigID { get; set; }
+        public List<string>? DesignationName { get; set; }
         public string? SamparkKishoreId { get; set; }
         public DateTime? RegistrationDate { get; set; }
         public string? KishoreStatus { get; set; }
@@ -39,10 +39,8 @@ namespace Eymyuvaman.Model
         public string? OldKishoreId { get; set; }
         public string? Area { get; set; }
         public string? NewKishoreId { get; set; }
-        public byte[]? KImage { get; set; }
         public string? PrintFlag { get; set; }
         public bool? Status { get; set; }
-        public string? Password { get; set; }
         public string? BloodGroup { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool? IsShatabdiSevak { get; set; }

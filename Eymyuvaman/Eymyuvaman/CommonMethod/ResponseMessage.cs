@@ -9,7 +9,7 @@
         public static string EmailAndPhoneAlreadyExist = "Email and phone number already exist.";
         public static string DataRetrieved = "Data retrieved successfully.";
         public static string NoDataFound = "No data found. Please try again later.";
-        public static string UserInActive = "User inactive.";
+        public static string UserInActive = "User account is not active.Kindly activate the account to proceed.";
         public static string AddUser = "User added successfully.";
         public static string UpdateUser = "User updated successfully.";
         public static string InvalidCredentials = "The mobile number or password you entered is incorrect. Please try again.";
@@ -59,6 +59,18 @@
         #region :: Area ::
         public static string AddNewAreaDetail = "New area details has been added successfully.";
         public static string UpdateAreaDetail = "Area details have been updated successfully.";
+        public static string AreaCodeAlreadyExists = "The area code already exists. Please use a different area code.";
+        #endregion
+
+        #region :: kishore ::
+        public static string AddNewKishoreDetail = "New kishore details has been added successfully.";
+        public static string UpdateKishoreDetail = "Kishore details have been updated successfully.";
+        public static string InvalidAreaCode = "Area code is missing or invalid.";
+        #endregion
+
+        #region :: Designation ::
+        public static string AddNewDesignationDetail = "New designation details has been added successfully.";
+        public static string UpdateDesignationDetail = "Designation details have been updated successfully.";
         #endregion
     }
 }

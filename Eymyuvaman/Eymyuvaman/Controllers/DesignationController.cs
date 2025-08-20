@@ -1,28 +1,27 @@
 ﻿using Eymyuvaman.Helper;
 using Eymyuvaman.Repository;
-using Eymyuvaman.ViewModel.City;
-using Eymyuvaman.ViewModel.EvantDetails;
+using Eymyuvaman.ViewModel.Designation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eymyuvaman.Controllers
 {
+
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class CityController : ControllerBase
+    public class DesignationController : Controller
     {
-        private readonly ICityRespository _cityRespository;
-
-        public CityController(ICityRespository cityRespository)
+        private readonly IDesignationRepository _designationRepository;
+        public DesignationController(IDesignationRepository designationRepository)
         {
-            _cityRespository = cityRespository;
+            _designationRepository = designationRepository;
         }
 
-        [HttpPost("Add-Update-City")]
-        public async Task<ActionResult> AddUpdateCity([FromBody] AddUpdateCityVM entity)
+        [HttpPost("Add-Update-Designation")]
+        public async Task<ActionResult> AddUpdateDesignation([FromBody] AddUpdateDesignationVM entity)
         {
-            var result = await _cityRespository.AddUpdateCity(entity);
+            var result = await _designationRepository.AddUpdateDesignation(entity);
             if (result.Success)
                 return Ok(result);
 
@@ -37,10 +36,10 @@ namespace Eymyuvaman.Controllers
             });
         }
 
-        [HttpGet("Get-All-City-Detail")]
-        public async Task<ActionResult> GetAllCityDetail()
+        [HttpGet("Get-All-Designation")]
+        public async Task<ActionResult> GetAllDesignationDetail()
         {
-            var result = await _cityRespository.GetAllCityDetail();
+            var result = await _designationRepository.GetAllDesignationDetail();
             if (result.Success)
                 return Ok(result);
 
