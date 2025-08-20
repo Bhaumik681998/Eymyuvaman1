@@ -21,6 +21,9 @@ namespace Eymyuvaman.Extensions
             services.AddScoped<ISabhaSessionRepository, SabhaSessionService>();
             services.AddScoped<INewYuvakSabhaAttendRepository, NewYuvakSabhaAttendService>();
             services.AddScoped<IEvantRepository, EvantService>();
+            services.AddScoped<ICityRespository, CityService>();
+            services.AddScoped<IZoneRepository, ZoneService>();
+            services.AddScoped<IAreaRepository, AreaService>();
         }
     }
 }

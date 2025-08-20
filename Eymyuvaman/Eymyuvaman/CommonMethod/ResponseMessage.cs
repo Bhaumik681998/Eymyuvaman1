@@ -46,5 +46,19 @@
         public static string UpdateEvantEntryDetail = "Evant entry details have been updated successfully.";
         #endregion
 
+        #region :: City ::
+        public static string AddNewCityDetail = "New city details has been added successfully.";
+        public static string UpdateCityDetail = "City details have been updated successfully.";
+        #endregion
+
+        #region :: Zones ::
+        public static string AddNewZonesDetail = "New zones details has been added successfully.";
+        public static string UpdateZonesDetail = "Zones details have been updated successfully.";
+        #endregion
+
+        #region :: Area ::
+        public static string AddNewAreaDetail = "New area details has been added successfully.";
+        public static string UpdateAreaDetail = "Area details have been updated successfully.";
+        #endregion
     }
 }

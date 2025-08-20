@@ -20,5 +20,8 @@ namespace Eymyuvaman.Data
         public DbSet<EvantDetial> EvantDetial { get; set; }
         public DbSet<EvantEntry> EvantEntry { get; set; }
         public DbSet<EventEntryLog> EventEntryLog { get; set; }
+        public DbSet<City> City { get; set; }
+        public DbSet<Zones> Zones { get; set; }
+        public DbSet<Area> Area { get; set; }
     }
 }
