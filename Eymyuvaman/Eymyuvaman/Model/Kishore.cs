@@ -43,6 +43,7 @@ namespace Eymyuvaman.Model
         public string? PrintFlag { get; set; }
         public bool? Status { get; set; }
         public string? Password { get; set; }
+        public string? PasswordSalt { get; set; }
         public string? BloodGroup { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool? IsShatabdiSevak { get; set; }

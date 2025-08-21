@@ -44,7 +44,10 @@ namespace Eymyuvaman.Service
 
                 UserDetail.MobileNo = entity.MobileNo;
                 UserDetail.Email = entity.Email;
-                UserDetail.Password = Encrypting.HashPassword(entity.Password ?? string.Empty);
+
+                var (hash, salt) = PasswordHelper.HashPasswordWithSalt(entity.Password ?? string.Empty);
+                UserDetail.Password = hash;
+                UserDetail.PasswordSalt = salt;
                 UserDetail.Status = entity.Status;
 
                 await _dbContext.SaveChangesAsync();

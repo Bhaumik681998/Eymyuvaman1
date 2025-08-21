@@ -100,7 +100,11 @@ namespace Eymyuvaman.Service
                 kishoreDetail.KImage = null;
                 kishoreDetail.PrintFlag = entity.PrintFlag;
                 kishoreDetail.Status = entity.Status;
-                kishoreDetail.Password = Encrypting.HashPassword(entity.Password ?? string.Empty);
+
+                var (hash, salt) = PasswordHelper.HashPasswordWithSalt(entity.Password ?? string.Empty);
+                kishoreDetail.Password = hash;
+                kishoreDetail.PasswordSalt = salt;
+                
                 kishoreDetail.BloodGroup = entity.BloodGroup;
                 kishoreDetail.IsShatabdiSevak = entity.IsShatabdiSevak;
                 kishoreDetail.Comment = entity.Comment;

@@ -44,7 +44,7 @@ namespace Eymyuvaman.Service
                 areaDetail.ImagePath = entity.ImagePath;
                 areaDetail.AreaCode = entity.AreaCode;
                 areaDetail.UserName = entity.UserName;
-                areaDetail.UserPassword = Encrypting.HashPassword(entity.UserPassword ?? string.Empty);
+                areaDetail.UserPassword = PasswordHelper.HashPassword(entity.UserPassword ?? string.Empty);
                 areaDetail.UserEmail = entity.UserEmail;
                 areaDetail.UserMobile = entity.UserMobile;
                 areaDetail.Status = entity.Status;

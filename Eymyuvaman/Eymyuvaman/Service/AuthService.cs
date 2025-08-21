@@ -1,7 +1,9 @@
 ﻿using Eymyuvaman.CommonMethod;
 using Eymyuvaman.Data;
 using Eymyuvaman.Helper;
+using Eymyuvaman.Model;
 using Eymyuvaman.Repository;
+using Eymyuvaman.ViewModel.Designation;
 using Eymyuvaman.ViewModel.UserMaster;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -23,29 +25,57 @@ namespace Eymyuvaman.Service
         }
 
         #region :: LoginUser ::
+
         public async Task<BaseResponseObject<UserLoginResponseVM>> LoginUser(UserLoginVM entity)
         {
             try
             {
-
                 if (string.IsNullOrWhiteSpace(entity.Password) || string.IsNullOrWhiteSpace(entity.MobileNo))
                     return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.EmptyCredentials };
 
-                var password = Encrypting.HashPassword(entity.Password);
-                var user = await _dbContext.UserMaster.Where(x => x.MobileNo == entity.MobileNo && x.Password == password).FirstOrDefaultAsync();
-                if (user == null)
+                var kishore = await _dbContext.Kishore.Where(x => x.Phone == entity.MobileNo).FirstOrDefaultAsync();
+
+                if (kishore == null)
                     return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.InvalidCredentials };
 
-                if (user.Status != true)
+                if (string.IsNullOrEmpty(kishore.Password) || string.IsNullOrEmpty(kishore.PasswordSalt))
+                    return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.InvalidCredentials };
+
+                // Verify password
+                bool isValid = PasswordHelper.VerifyPassword(entity.Password, kishore.Password, kishore.PasswordSalt);
+                if (!isValid)
+                    return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.InvalidCredentials };
+
+                if (kishore.Status != true)
                     return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.UserInActive };
 
+                // JWT Token generate
                 var claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.MobilePhone, user.MobileNo)
+                    new Claim("LoggedInUserId", kishore.KId.ToString()),
+                    new Claim("KishoreName", kishore.KishoreName ?? string.Empty),
+                    new Claim("AreaID", kishore.AreaID.ToString()),
+                    new Claim("KishoreID", kishore.KishoreID ?? string.Empty),
+                    new Claim("SurName", kishore.SurName ?? string.Empty),
+                    new Claim("FatherName", kishore.FatherName ?? string.Empty),
+                    new Claim(ClaimTypes.Email, kishore.Email ?? string.Empty),
+                    new Claim(ClaimTypes.MobilePhone, kishore.Phone ?? string.Empty),
                 };
-                double expireTime = Convert.ToDouble(_configuration["Token:ExpiredTime"]);
+                var designationIds = (kishore.DesigID ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+
+                if (designationIds.Any())
+                {
+                    claims.AddRange(designationIds.Select(id => new Claim("Designation", id.ToString())));
+                }
+                var designationList = await _dbContext.Designation.Where(d => designationIds.Contains(d.DesigID))
+                               .Select(d => new UserDesignationVM
+                               {
+                                   DesigID = d.DesigID,
+                                   Designation = d.DesignationName
+                               }).ToListAsync();
+
+
+                double expireTime = Convert.ToDouble(_configuration["Token:ExpiredTime"] ?? "30");
                 DateTime setExpiredTime = DateTime.Now.AddMinutes(expireTime);
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
@@ -59,6 +89,7 @@ namespace Eymyuvaman.Service
                     Audience = _configuration["Jwt:Audience"],
                     SigningCredentials = creds
                 };
+
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 string jwtToken = tokenHandler.WriteToken(token);
@@ -70,8 +101,11 @@ namespace Eymyuvaman.Service
                     Data = new UserLoginResponseVM
                     {
                         Token = jwtToken,
-                        MobileNo = user.MobileNo,
-                        Email = user.Email,
+                        MobileNo = kishore.Phone,
+                        Email = kishore.Email,
+                        KishoreName = kishore.KishoreName + " " + kishore.FatherName + " " + kishore.SurName,
+                        AreaId = kishore.AreaID,
+                        Designation = designationList,
                         ExpireAt = setExpiredTime
                     }
                 };
@@ -81,6 +115,66 @@ namespace Eymyuvaman.Service
                 throw;
             }
         }
+
+
+        //public async Task<BaseResponseObject<UserLoginResponseVM>> LoginUser(UserLoginVM entity)
+        //{
+        //    try
+        //    {
+
+        //        if (string.IsNullOrWhiteSpace(entity.Password) || string.IsNullOrWhiteSpace(entity.MobileNo))
+        //            return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.EmptyCredentials };
+
+        //        var password = PasswordHelper.HashPassword(entity.Password);
+        //        var user = await _dbContext.UserMaster.Where(x => x.MobileNo == entity.MobileNo && x.Password == password).FirstOrDefaultAsync();
+        //        if (user == null)
+        //            return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.InvalidCredentials };
+
+        //        if (user.Status != true)
+        //            return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.UserInActive };
+
+        //        var claims = new List<Claim>()
+        //        {
+        //            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        //            new Claim(ClaimTypes.Email, user.Email),
+        //            new Claim(ClaimTypes.MobilePhone, user.MobileNo)
+        //        };
+        //        double expireTime = Convert.ToDouble(_configuration["Token:ExpiredTime"]);
+        //        DateTime setExpiredTime = DateTime.Now.AddMinutes(expireTime);
+
+        //        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+        //        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        //        var tokenDescriptor = new SecurityTokenDescriptor
+        //        {
+        //            Subject = new ClaimsIdentity(claims),
+        //            Expires = setExpiredTime,
+        //            Issuer = _configuration["Jwt:Issuer"],
+        //            Audience = _configuration["Jwt:Audience"],
+        //            SigningCredentials = creds
+        //        };
+        //        var tokenHandler = new JwtSecurityTokenHandler();
+        //        var token = tokenHandler.CreateToken(tokenDescriptor);
+        //        string jwtToken = tokenHandler.WriteToken(token);
+
+        //        return new BaseResponseObject<UserLoginResponseVM>
+        //        {
+        //            Success = true,
+        //            Message = ResponseMessage.UserLogin,
+        //            Data = new UserLoginResponseVM
+        //            {
+        //                Token = jwtToken,
+        //                MobileNo = user.MobileNo,
+        //                Email = user.Email,
+        //                ExpireAt = setExpiredTime
+        //            }
+        //        };
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
         #endregion
     }
 }
