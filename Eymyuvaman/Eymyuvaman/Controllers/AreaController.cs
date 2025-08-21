@@ -20,6 +20,7 @@ namespace Eymyuvaman.Controllers
         }
 
         [HttpPost("Add-Update-Area-Detail")]
+        //[Authorize(Roles = "Admin,Super Admin")]
         public async Task<ActionResult> AddUpdateAreaDetail([FromBody] AddUpdateAreaDetail entity)
         {
             var result = await _areaRepository.AddUpdateAreaDetail(entity);

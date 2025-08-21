@@ -60,20 +60,27 @@ namespace Eymyuvaman.Service
                     new Claim("SurName", kishore.SurName ?? string.Empty),
                     new Claim("FatherName", kishore.FatherName ?? string.Empty),
                     new Claim(ClaimTypes.Email, kishore.Email ?? string.Empty),
-                    new Claim(ClaimTypes.MobilePhone, kishore.Phone ?? string.Empty),
+                    new Claim(ClaimTypes.MobilePhone, kishore.Phone ?? string.Empty)
                 };
                 var designationIds = (kishore.DesigID ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
-
+                var designationList = await _dbContext.Designation.Where(d => designationIds.Contains(d.DesigID))
+                              .Select(d => new UserDesignationVM
+                              {
+                                  DesigID = d.DesigID,
+                                  Designation = d.DesignationName
+                              }).ToListAsync();
                 if (designationIds.Any())
                 {
-                    claims.AddRange(designationIds.Select(id => new Claim("Designation", id.ToString())));
+                    claims.AddRange(designationIds.Select(id => new Claim("DesignationId", id.ToString())));
+                    foreach (var des in designationList)
+                    {
+                        if (!string.IsNullOrEmpty(des.Designation))
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, des.Designation));
+                        }
+                    }
                 }
-                var designationList = await _dbContext.Designation.Where(d => designationIds.Contains(d.DesigID))
-                               .Select(d => new UserDesignationVM
-                               {
-                                   DesigID = d.DesigID,
-                                   Designation = d.DesignationName
-                               }).ToListAsync();
+               
 
 
                 double expireTime = Convert.ToDouble(_configuration["Token:ExpiredTime"] ?? "30");
