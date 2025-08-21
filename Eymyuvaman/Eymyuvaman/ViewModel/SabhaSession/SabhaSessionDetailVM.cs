@@ -4,8 +4,8 @@
     {
         public int Id { get; set; }
         public string? SessionTitle { get; set; }
-        public string? Regular_Evant { get; set; }
-        public int Regular_Evant_Id { get; set; }
+        public string? Regular_Event { get; set; }
+        public int Regular_Event_Id { get; set; }
         public DateTime? SabhaDate { get; set; }
         public string? StartTime { get; set; }
         public string? EndTime { get; set; }

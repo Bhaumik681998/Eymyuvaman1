@@ -1,6 +1,6 @@
-﻿namespace Eymyuvaman.ViewModel.EvantDetails
+﻿namespace Eymyuvaman.ViewModel.EventDetails
 {
-    public class EvantAreaDetailVM
+    public class EventAreaDetailVM
     {
         public int Id { get; set; }
         public int EventId { get; set; }

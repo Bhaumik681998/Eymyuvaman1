@@ -1,24 +1,24 @@
 ﻿using Eymyuvaman.Helper;
-using Eymyuvaman.ViewModel.EvantDetails;
+using Eymyuvaman.ViewModel.EventDetails;
 
 namespace Eymyuvaman.Repository
 {
-    public interface IEvantRepository
+    public interface IEventRepository
     {
-        Task<BaseResponse> AddUpdateEvant(AddUpdateEvantVM entity);
-        Task<BaseResponseModel<IEnumerable<EvantVM>>> GetAllEvant();
-        Task<BaseResponseObject<EvantVM>> GetEvantById(int EvantId);
+        Task<BaseResponse> AddUpdateEvent(AddUpdateEventVM entity);
+        Task<BaseResponseModel<IEnumerable<EventVM>>> GetAllEvent();
+        Task<BaseResponseObject<EventVM>> GetEventById(int EventId);
 
-        Task<BaseResponse> AddUpdateEvantAreaDetail(AddUpdateEvantAreaVM entity);
-        Task<BaseResponseModel<IEnumerable<EvantAreaDetailVM>>> GetAllEvantAreaDetail();
-        Task<BaseResponseObject<EvantAreaDetailVM>> GetEvantAreaDetailById(int EvantAreaId);
+        Task<BaseResponse> AddUpdateEventAreaDetail(AddUpdateEventAreaVM entity);
+        Task<BaseResponseModel<IEnumerable<EventAreaDetailVM>>> GetAllEventAreaDetail();
+        Task<BaseResponseObject<EventAreaDetailVM>> GetEventAreaDetailById(int EventAreaId);
 
-        Task<BaseResponse> AddUpdateEvantDetail(AddUpdateEvantDetialVM entity);
-        Task<BaseResponseModel<IEnumerable<EvantDetialVM>>> GetAllEvantDetail();
-        Task<BaseResponseObject<EvantDetialVM>> GetEvantDetailById(int EvantDetailId);
+        Task<BaseResponse> AddUpdateEventDetail(AddUpdateEventDetialVM entity);
+        Task<BaseResponseModel<IEnumerable<EventDetialVM>>> GetAllEventDetail();
+        Task<BaseResponseObject<EventDetialVM>> GetEventDetailById(int EventDetailId);
 
-        Task<BaseResponse> AddUpdateEvantEntryDetail(AddUpdateEvantEntryVM entity);
-        Task<BaseResponseModel<IEnumerable<EvantEntryDetailVM>>> GetAllEvantEntryDetail();
-        Task<BaseResponseObject<EvantEntryDetailVM>> GetEvantEntryDetailById(int EvantDetailId);
+        Task<BaseResponse> AddUpdateEventEntryDetail(AddUpdateEventEntryVM entity);
+        Task<BaseResponseModel<IEnumerable<EventEntryDetailVM>>> GetAllEventEntryDetail();
+        Task<BaseResponseObject<EventEntryDetailVM>> GetEventEntryDetailById(int EventDetailId);
     }
 }

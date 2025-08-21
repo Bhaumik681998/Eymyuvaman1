@@ -3,7 +3,7 @@ using Eymyuvaman.Data;
 using Eymyuvaman.Helper;
 using Eymyuvaman.Model;
 using Eymyuvaman.Repository;
-using Eymyuvaman.ViewModel.EvantDetails;
+using Eymyuvaman.ViewModel.EventDetails;
 using Eymyuvaman.ViewModel.Zone;
 using Microsoft.EntityFrameworkCore;
 

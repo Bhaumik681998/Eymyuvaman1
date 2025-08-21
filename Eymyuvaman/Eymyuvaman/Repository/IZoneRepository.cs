@@ -1,5 +1,5 @@
 ﻿using Eymyuvaman.Helper;
-using Eymyuvaman.ViewModel.EvantDetails;
+using Eymyuvaman.ViewModel.EventDetails;
 using Eymyuvaman.ViewModel.Zone;
 
 namespace Eymyuvaman.Repository

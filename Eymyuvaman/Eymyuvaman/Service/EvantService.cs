@@ -1,9 +1,9 @@
 ﻿using Eymyuvaman.CommonMethod;
 using Eymyuvaman.Data;
 using Eymyuvaman.Helper;
-using Eymyuvaman.Model.Evant;
+using Eymyuvaman.Model.Event;
 using Eymyuvaman.Repository;
-using Eymyuvaman.ViewModel.EvantDetails;
+using Eymyuvaman.ViewModel.EventDetails;
 using Eymyuvaman.ViewModel.SabhaSession;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,36 +13,36 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace Eymyuvaman.Service
 {
-    public class EvantService : IEvantRepository
+    public class EventService : IEventRepository
     {
         private readonly AppDBContext _dbContext;
-        public EvantService(AppDBContext dbContext)
+        public EventService(AppDBContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        #region :: Evant ::
+        #region :: Event ::
 
-        #region :: Add/Update Evant Detail ::
-        public async Task<BaseResponse> AddUpdateEvant(AddUpdateEvantVM entity)
+        #region :: Add/Update Event Detail ::
+        public async Task<BaseResponse> AddUpdateEvent(AddUpdateEventVM entity)
         {
             try
             {
-                bool isNewEvant = false;
-                Evant? evantDetail = _dbContext.Evant.FirstOrDefault(x => x.EvantId == entity.EvantId);
+                bool isNewEvent = false;
+                Evant? evantDetail = _dbContext.Evant.FirstOrDefault(x => x.EvantId == entity.EventId);
                 if (evantDetail == null)
                 {
-                    isNewEvant = true;
+                    isNewEvent = true;
                     evantDetail = new Evant()
                     {
-                        EvantName = entity.EvantName,
+                        EventName = entity.EventName,
                         Active = entity.Active
                     };
                     await _dbContext.Evant.AddAsync(evantDetail);
                 }
                 else
                 {
-                    evantDetail.EvantName = entity.EvantName;
+                    evantDetail.EventName = entity.EventName;
                     evantDetail.Active = entity.Active;
 
                     _dbContext.Evant.Update(evantDetail);
@@ -51,8 +51,8 @@ namespace Eymyuvaman.Service
 
                 return new BaseResponse
                 {
-                    Success = isNewEvant,
-                    Message = isNewEvant ? ResponseMessage.AddNewEvantDetail : ResponseMessage.UpdateEvantDetail
+                    Success = isNewEvent,
+                    Message = isNewEvent ? ResponseMessage.AddNewEventDetail : ResponseMessage.UpdateEventDetail
                 };
             }
             catch (Exception)
@@ -62,20 +62,20 @@ namespace Eymyuvaman.Service
         }
         #endregion
 
-        #region ::Get All Evant ::
-        public async Task<BaseResponseModel<IEnumerable<EvantVM>>> GetAllEvant()
+        #region ::Get All Event ::
+        public async Task<BaseResponseModel<IEnumerable<EventVM>>> GetAllEvent()
         {
             try
             {
                 var evantList = await _dbContext.Evant.Where(x => x.Active == 1)
-                    .Select(e => new EvantVM()
+                    .Select(e => new EventVM()
                     {
-                        EvantId = e.EvantId,
-                        EvantName = e.EvantName,
+                        EventId = e.EvantId,
+                        EventName = e.EventName,
                         Active = e.Active
                     }).AsNoTracking().ToListAsync();
 
-                return new BaseResponseModel<IEnumerable<EvantVM>>
+                return new BaseResponseModel<IEnumerable<EventVM>>
                 {
                     Success = evantList.Any(),
                     Message = evantList.Any() ? ResponseMessage.DataRetrieved : ResponseMessage.NoDataFound,
@@ -90,19 +90,19 @@ namespace Eymyuvaman.Service
         }
         #endregion
 
-        #region :: Get Evant By Id ::
-        public async Task<BaseResponseObject<EvantVM>> GetEvantById(int EvantId)
+        #region :: Get Event By Id ::
+        public async Task<BaseResponseObject<EventVM>> GetEventById(int EventId)
         {
             try
             {
-                var evantDetail = await _dbContext.Evant.Where(x => x.EvantId == EvantId && x.Active == 1)
-                    .Select(e => new EvantVM()
+                var evantDetail = await _dbContext.Evant.Where(x => x.EvantId == EventId && x.Active == 1)
+                    .Select(e => new EventVM()
                     {
-                        EvantId = e.EvantId,
-                        EvantName = e.EvantName,
+                        EventId = e.EvantId,
+                        EventName = e.EventName,
                         Active = e.Active
                     }).AsNoTracking().FirstOrDefaultAsync();
-                return new BaseResponseObject<EvantVM>
+                return new BaseResponseObject<EventVM>
                 {
                     Success = evantDetail != null,
                     Message = evantDetail != null ? ResponseMessage.DataRetrieved : ResponseMessage.NoDataFound,
@@ -118,16 +118,16 @@ namespace Eymyuvaman.Service
 
         #endregion
 
-        #region :: Evant Area ::
-        public async Task<BaseResponse> AddUpdateEvantAreaDetail(AddUpdateEvantAreaVM entity)
+        #region :: Event Area ::
+        public async Task<BaseResponse> AddUpdateEventAreaDetail(AddUpdateEventAreaVM entity)
         {
             try
             {
-                bool isNewEvantArea = false;
+                bool isNewEventArea = false;
                 EvantArea? evantAreaDetail = _dbContext.EvantArea.FirstOrDefault(x => x.Id == entity.Id);
                 if (evantAreaDetail == null)
                 {
-                    isNewEvantArea = true;
+                    isNewEventArea = true;
                     evantAreaDetail = new EvantArea()
                     {
                         EventId = entity.EventId,
@@ -148,8 +148,8 @@ namespace Eymyuvaman.Service
 
                 return new BaseResponse
                 {
-                    Success = isNewEvantArea,
-                    Message = isNewEvantArea ? ResponseMessage.AddNewEvantAreaDetail : ResponseMessage.UpdateEvantAreaDetail
+                    Success = isNewEventArea,
+                    Message = isNewEventArea ? ResponseMessage.AddNewEventAreaDetail : ResponseMessage.UpdateEventAreaDetail
                 };
             }
             catch (Exception)
@@ -157,12 +157,12 @@ namespace Eymyuvaman.Service
                 throw;
             }
         }
-        #region ::Get All Evant Area ::
-        public async Task<BaseResponseModel<IEnumerable<EvantAreaDetailVM>>> GetAllEvantAreaDetail()
+        #region ::Get All Event Area ::
+        public async Task<BaseResponseModel<IEnumerable<EventAreaDetailVM>>> GetAllEventAreaDetail()
         {
             try
             {
-                var evantAreaList = await _dbContext.EvantArea.Select(e => new EvantAreaDetailVM()
+                var evantAreaList = await _dbContext.EvantArea.Select(e => new EventAreaDetailVM()
                 {
                     Id = e.Id,
                     EventId = e.EventId,
@@ -170,7 +170,7 @@ namespace Eymyuvaman.Service
                     Flag = e.Flag
                 }).AsNoTracking().ToListAsync();
 
-                return new BaseResponseModel<IEnumerable<EvantAreaDetailVM>>
+                return new BaseResponseModel<IEnumerable<EventAreaDetailVM>>
                 {
                     Success = evantAreaList.Any(),
                     Message = evantAreaList.Any() ? ResponseMessage.DataRetrieved : ResponseMessage.NoDataFound,
@@ -185,20 +185,20 @@ namespace Eymyuvaman.Service
         }
         #endregion
 
-        #region :: Get Evant Area By Id ::
-        public async Task<BaseResponseObject<EvantAreaDetailVM>> GetEvantAreaDetailById(int EvantAreaId)
+        #region :: Get Event Area By Id ::
+        public async Task<BaseResponseObject<EventAreaDetailVM>> GetEventAreaDetailById(int EventAreaId)
         {
             try
             {
-                var evantAreaDetail = await _dbContext.EvantArea.Where(x => x.Id == EvantAreaId)
-                    .Select(e => new EvantAreaDetailVM()
+                var evantAreaDetail = await _dbContext.EvantArea.Where(x => x.Id == EventAreaId)
+                    .Select(e => new EventAreaDetailVM()
                     {
                         Id = e.Id,
                         EventId = e.EventId,
                         AreaId = e.AreaId,
                         Flag = e.Flag
                     }).FirstOrDefaultAsync();
-                return new BaseResponseObject<EvantAreaDetailVM>
+                return new BaseResponseObject<EventAreaDetailVM>
                 {
                     Success = evantAreaDetail != null,
                     Message = evantAreaDetail != null ? ResponseMessage.DataRetrieved : ResponseMessage.NoDataFound,
@@ -214,24 +214,24 @@ namespace Eymyuvaman.Service
 
         #endregion
 
-        #region :: Evant Detial ::
+        #region :: Event Detial ::
 
-        #region :: Add/Update Evant Detail ::
-        public async Task<BaseResponse> AddUpdateEvantDetail(AddUpdateEvantDetialVM entity)
+        #region :: Add/Update Event Detail ::
+        public async Task<BaseResponse> AddUpdateEventDetail(AddUpdateEventDetialVM entity)
         {
             try
             {
                 EvantDetial? evantDetail = await _dbContext.EvantDetial.FirstOrDefaultAsync(x => x.EDetailId == entity.EDetailId);
 
-                bool isNewEvantDetail = evantDetail == null;
+                bool isNewEventDetail = evantDetail == null;
 
-                if (isNewEvantDetail)
+                if (isNewEventDetail)
                 {
                     evantDetail = new EvantDetial();
                     await _dbContext.EvantDetial.AddAsync(evantDetail);
                 }
 
-                evantDetail!.EvantId = entity.EvantId;
+                evantDetail!.EvantId = entity.EventId;
                 evantDetail.FieldTitle = entity.FieldTitle;
                 evantDetail.FiledType = entity.FiledType;
                 evantDetail.SequenceNo = entity.SequenceNo;
@@ -241,8 +241,8 @@ namespace Eymyuvaman.Service
 
                 return new BaseResponse
                 {
-                    Success = isNewEvantDetail,
-                    Message = isNewEvantDetail ? ResponseMessage.AddNewEvantEntryDetail : ResponseMessage.UpdateEvantEntryDetail
+                    Success = isNewEventDetail,
+                    Message = isNewEventDetail ? ResponseMessage.AddNewEventEntryDetail : ResponseMessage.UpdateEventEntryDetail
                 };
             }
             catch (Exception)
@@ -252,25 +252,25 @@ namespace Eymyuvaman.Service
         }
         #endregion
 
-        #region ::Get All Evant ::
-        public async Task<BaseResponseModel<IEnumerable<EvantDetialVM>>> GetAllEvantDetail()
+        #region ::Get All Event ::
+        public async Task<BaseResponseModel<IEnumerable<EventDetialVM>>> GetAllEventDetail()
         {
             try
             {
                 var evantDetailList = await (from ed in _dbContext.EvantDetial
                                              join ev in _dbContext.Evant on ed.EvantId equals ev.EvantId
-                                             select new EvantDetialVM
+                                             select new EventDetialVM
                                              {
-                                                 EDetailId = ed.EvantId,
-                                                 EvantId = ed.EvantId,
-                                                 EvantName = ev.EvantName,
+                                                 EDetailId = ed.EDetailId,
+                                                 EventId = ed.EvantId,
+                                                 EventName = ev.EventName,
                                                  FieldTitle = ed.FieldTitle,
                                                  FiledType = ed.FiledType,
                                                  SequenceNo = ed.SequenceNo,
                                                  DefaultValue = ed.DefaultValue
                                              }).AsNoTracking().ToListAsync();
 
-                return new BaseResponseModel<IEnumerable<EvantDetialVM>>
+                return new BaseResponseModel<IEnumerable<EventDetialVM>>
                 {
                     Success = evantDetailList.Any(),
                     Message = evantDetailList.Any() ? ResponseMessage.DataRetrieved : ResponseMessage.NoDataFound,
@@ -285,26 +285,26 @@ namespace Eymyuvaman.Service
         }
         #endregion
 
-        #region :: Get Evant By Id ::
-        public async Task<BaseResponseObject<EvantDetialVM>> GetEvantDetailById(int EvantDetailId)
+        #region :: Get Event By Id ::
+        public async Task<BaseResponseObject<EventDetialVM>> GetEventDetailById(int EventDetailId)
         {
             try
             {
                 var evantDetail = await (from ed in _dbContext.EvantDetial
                                          join ev in _dbContext.Evant on ed.EvantId equals ev.EvantId
-                                         where ed.EDetailId == EvantDetailId
-                                         select new EvantDetialVM
+                                         where ed.EDetailId == EventDetailId
+                                         select new EventDetialVM
                                          {
-                                             EDetailId = ed.EvantId,
-                                             EvantId = ed.EvantId,
-                                             EvantName = ev.EvantName,
+                                             EDetailId = ed.EDetailId,
+                                             EventId = ed.EvantId,
+                                             EventName = ev.EventName,
                                              FieldTitle = ed.FieldTitle,
                                              FiledType = ed.FiledType,
                                              SequenceNo = ed.SequenceNo,
                                              DefaultValue = ed.DefaultValue
                                          }).FirstOrDefaultAsync();
 
-                return new BaseResponseObject<EvantDetialVM>
+                return new BaseResponseObject<EventDetialVM>
                 {
                     Success = evantDetail != null,
                     Message = evantDetail != null ? ResponseMessage.DataRetrieved : ResponseMessage.NoDataFound,
@@ -320,24 +320,24 @@ namespace Eymyuvaman.Service
 
         #endregion
 
-        #region :: Evant Entry ::
+        #region :: Event Entry ::
 
-        #region :: Add/Update Evant Entry Detail ::
-        public async Task<BaseResponse> AddUpdateEvantEntryDetail(AddUpdateEvantEntryVM entity)
+        #region :: Add/Update Event Entry Detail ::
+        public async Task<BaseResponse> AddUpdateEventEntryDetail(AddUpdateEventEntryVM entity)
         {
             try
             {
                 EvantEntry? evantEntryDetail = await _dbContext.EvantEntry.FirstOrDefaultAsync(x => x.EEntryId == entity.EEntryId);
 
-                bool isNewEvantEntryDetail = evantEntryDetail == null;
+                bool isNewEventEntryDetail = evantEntryDetail == null;
 
-                if (isNewEvantEntryDetail)
+                if (isNewEventEntryDetail)
                 {
                     evantEntryDetail = new EvantEntry();
                     await _dbContext.EvantEntry.AddAsync(evantEntryDetail);
                 }
 
-                evantEntryDetail!.EvantId = entity.EvantId;
+                evantEntryDetail!.EvantId = entity.EventId;
                 evantEntryDetail.EDetailId = entity.EDetailId;
                 evantEntryDetail.KishorId = entity.KishorId;
                 evantEntryDetail.Value = entity.Value;
@@ -347,8 +347,8 @@ namespace Eymyuvaman.Service
 
                 return new BaseResponse
                 {
-                    Success = isNewEvantEntryDetail,
-                    Message = isNewEvantEntryDetail ? ResponseMessage.AddNewEvantEntryDetail : ResponseMessage.UpdateEvantEntryDetail
+                    Success = isNewEventEntryDetail,
+                    Message = isNewEventEntryDetail ? ResponseMessage.AddNewEventEntryDetail : ResponseMessage.UpdateEventEntryDetail
                 };
             }
             catch (Exception)
@@ -358,8 +358,8 @@ namespace Eymyuvaman.Service
         }
         #endregion
 
-        #region ::Get All Evant ::
-        public async Task<BaseResponseModel<IEnumerable<EvantEntryDetailVM>>> GetAllEvantEntryDetail()
+        #region ::Get All Event ::
+        public async Task<BaseResponseModel<IEnumerable<EventEntryDetailVM>>> GetAllEventEntryDetail()
         {
             try
             {
@@ -367,11 +367,11 @@ namespace Eymyuvaman.Service
                                                   join ev in _dbContext.Evant on ee.EvantId equals ev.EvantId
                                                   join ed in _dbContext.EvantDetial on ee.EDetailId equals ed.EDetailId
                                                   join k in _dbContext.Kishore on ee.KishorId equals k.KId
-                                                  select new EvantEntryDetailVM
+                                                  select new EventEntryDetailVM
                                                   {
                                                       EEntryId = ee.EDetailId,
-                                                      EvantId = ee.EvantId,
-                                                      EvantName = ev.EvantName,
+                                                      EventId = ee.EvantId,
+                                                      EventName = ev.EventName,
                                                       EDetailId = ee.EDetailId,
                                                       FieldTitle = ed.FieldTitle,
                                                       FieldType = ed.FiledType,
@@ -381,7 +381,7 @@ namespace Eymyuvaman.Service
                                                       Completed = ee.Completed
                                                   }).AsNoTracking().ToListAsync();
 
-                return new BaseResponseModel<IEnumerable<EvantEntryDetailVM>>
+                return new BaseResponseModel<IEnumerable<EventEntryDetailVM>>
                 {
                     Success = evantEntryDetailList.Any(),
                     Message = evantEntryDetailList.Any() ? ResponseMessage.DataRetrieved : ResponseMessage.NoDataFound,
@@ -396,20 +396,20 @@ namespace Eymyuvaman.Service
         }
         #endregion
 
-        #region :: Get Evant By Id ::
-        public async Task<BaseResponseObject<EvantEntryDetailVM>> GetEvantEntryDetailById(int EvantDetailId)
+        #region :: Get Event By Id ::
+        public async Task<BaseResponseObject<EventEntryDetailVM>> GetEventEntryDetailById(int EventDetailId)
         {
             try
             {
                 var evantEntryDetail = await (from ee in _dbContext.EvantEntry
-                                                  join ev in _dbContext.Evant on ee.EvantId equals ev.EvantId
+                                              join ev in _dbContext.Evant on ee.EvantId equals ev.EvantId
                                                   join ed in _dbContext.EvantDetial on ee.EDetailId equals ed.EDetailId
                                                   join k in _dbContext.Kishore on ee.KishorId equals k.KId
-                                                  select new EvantEntryDetailVM
+                                                  select new EventEntryDetailVM
                                                   {
                                                       EEntryId = ee.EDetailId,
-                                                      EvantId = ee.EvantId,
-                                                      EvantName = ev.EvantName,
+                                                      EventId = ee.EvantId,
+                                                      EventName = ev.EventName,
                                                       EDetailId = ee.EDetailId,
                                                       FieldTitle = ed.FieldTitle,
                                                       FieldType = ed.FiledType,
@@ -420,7 +420,7 @@ namespace Eymyuvaman.Service
                                                   }).AsNoTracking().FirstOrDefaultAsync();
 
 
-                return new BaseResponseObject<EvantEntryDetailVM>
+                return new BaseResponseObject<EventEntryDetailVM>
                 {
                     Success = evantEntryDetail != null,
                     Message = evantEntryDetail != null ? ResponseMessage.DataRetrieved : ResponseMessage.NoDataFound,

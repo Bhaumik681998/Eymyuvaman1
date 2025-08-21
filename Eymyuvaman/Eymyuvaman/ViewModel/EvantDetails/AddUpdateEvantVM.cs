@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Eymyuvaman.ViewModel.EvantDetails
+namespace Eymyuvaman.ViewModel.EventDetails
 {
-    public class AddUpdateEvantVM
+    public class AddUpdateEventVM
     {
-        public int EvantId { get; set; }
+        public int EventId { get; set; }
         [Required]
-        public string? EvantName { get; set; }
+        public string? EventName { get; set; }
         [Required]
         public int Active { get; set; }
     }

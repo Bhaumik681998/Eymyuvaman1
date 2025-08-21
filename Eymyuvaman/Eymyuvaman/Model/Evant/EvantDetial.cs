@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Eymyuvaman.Model.Evant
+namespace Eymyuvaman.Model.Event
 {
     public class EvantDetial
     {
@@ -9,7 +9,7 @@ namespace Eymyuvaman.Model.Evant
         public int EvantId { get; set; }
         public string? FieldTitle { get; set; }
         public string? FiledType { get; set; }
-        public string? SequenceNo { get; set; }
+        public int SequenceNo { get; set; }
         public string? DefaultValue { get; set; }
     }
 }

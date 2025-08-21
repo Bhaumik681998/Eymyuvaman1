@@ -1,6 +1,6 @@
 ﻿using Eymyuvaman.Helper;
 using Eymyuvaman.ViewModel.City;
-using Eymyuvaman.ViewModel.EvantDetails;
+using Eymyuvaman.ViewModel.EventDetails;
 
 namespace Eymyuvaman.Repository
 {

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Eymyuvaman.ViewModel.EvantDetails
+namespace Eymyuvaman.ViewModel.EventDetails
 {
-    public class AddUpdateEvantAreaVM
+    public class AddUpdateEventAreaVM
     {
         public int Id { get; set; }
         [Required]

@@ -1,7 +1,7 @@
 ﻿using Eymyuvaman.Helper;
 using Eymyuvaman.Repository;
 using Eymyuvaman.ViewModel.City;
-using Eymyuvaman.ViewModel.EvantDetails;
+using Eymyuvaman.ViewModel.EventDetails;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

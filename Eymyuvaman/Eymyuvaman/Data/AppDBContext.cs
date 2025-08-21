@@ -1,5 +1,5 @@
 ﻿using Eymyuvaman.Model;
-using Eymyuvaman.Model.Evant;
+using Eymyuvaman.Model.Event;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eymyuvaman.Data

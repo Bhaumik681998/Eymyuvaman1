@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Eymyuvaman.Model.Evant
+namespace Eymyuvaman.Model.Event
 {
     public class EvantEntry
     {

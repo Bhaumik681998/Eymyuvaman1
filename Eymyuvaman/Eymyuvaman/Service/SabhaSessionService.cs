@@ -28,8 +28,8 @@ namespace Eymyuvaman.Service
                     sabhaSession = new SabhaSession()
                     {
                         SessionTitle = entity.SessionTitle,
-                        Regular_Evant = entity.Regular_Evant,
-                        Regular_Evant_Id = entity.Regular_Evant_Id,
+                        Regular_Evant = entity.Regular_Event,
+                        Regular_Evant_Id = entity.Regular_Event_Id,
                         SabhaDate = entity.SabhaDate,
                         StartTime = entity.StartTime,
                         EndTime = entity.EndTime,
@@ -44,8 +44,8 @@ namespace Eymyuvaman.Service
                 else
                 {
                     sabhaSession.SessionTitle = entity.SessionTitle;
-                    sabhaSession.Regular_Evant = entity.Regular_Evant;
-                    sabhaSession.Regular_Evant_Id = entity.Regular_Evant_Id;
+                    sabhaSession.Regular_Evant = entity.Regular_Event;
+                    sabhaSession.Regular_Evant_Id = entity.Regular_Event_Id;
                     sabhaSession.SabhaDate = entity.SabhaDate;
                     sabhaSession.StartTime = entity.StartTime;
                     sabhaSession.EndTime = entity.EndTime;
@@ -84,8 +84,8 @@ namespace Eymyuvaman.Service
                 {
                     Id = s.Id,
                     SessionTitle = s.SessionTitle,
-                    Regular_Evant = s.Regular_Evant,
-                    Regular_Evant_Id = s.Regular_Evant_Id,
+                    Regular_Event = s.Regular_Evant,
+                    Regular_Event_Id = s.Regular_Evant_Id,
                     SabhaDate = s.SabhaDate,
                     StartTime = s.StartTime,
                     EndTime = s.EndTime,
@@ -120,8 +120,8 @@ namespace Eymyuvaman.Service
                {
                    Id = s.Id,
                    SessionTitle = s.SessionTitle,
-                   Regular_Evant = s.Regular_Evant,
-                   Regular_Evant_Id = s.Regular_Evant_Id,
+                   Regular_Event = s.Regular_Evant,
+                   Regular_Event_Id = s.Regular_Evant_Id,
                    SabhaDate = s.SabhaDate,
                    StartTime = s.StartTime,
                    EndTime = s.EndTime,

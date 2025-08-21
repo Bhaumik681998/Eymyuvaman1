@@ -36,6 +36,9 @@ namespace Eymyuvaman.Service
                 if (user == null)
                     return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.InvalidCredentials };
 
+                if (user.Status != true)
+                    return new BaseResponseObject<UserLoginResponseVM> { Success = false, Message = ResponseMessage.UserInActive };
+
                 var claims = new List<Claim>()
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),

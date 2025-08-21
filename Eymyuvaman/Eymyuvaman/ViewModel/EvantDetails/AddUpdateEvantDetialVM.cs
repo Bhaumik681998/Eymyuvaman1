@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Eymyuvaman.ViewModel.EvantDetails
+namespace Eymyuvaman.ViewModel.EventDetails
 {
-    public class AddUpdateEvantDetialVM
+    public class AddUpdateEventDetialVM
     {
         public int EDetailId { get; set; }
         [Required]
-        public int EvantId { get; set; }
+        public int EventId { get; set; }
         [Required]
         public string? FieldTitle { get; set; }
         [Required]
         public string? FiledType { get; set; }
         [Required]
-        public string? SequenceNo { get; set; }
+        public int SequenceNo { get; set; }
         public string? DefaultValue { get; set; }
     }
 }

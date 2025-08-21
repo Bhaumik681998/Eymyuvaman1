@@ -17,7 +17,7 @@ namespace Eymyuvaman.Service
             _dbContext = dbContext;
         }
 
-        #region Add/Update Area Detail ::
+        #region :: Add/Update Area Detail ::
         public async Task<BaseResponse> AddUpdateAreaDetail(AddUpdateAreaDetail entity)
         {
             try

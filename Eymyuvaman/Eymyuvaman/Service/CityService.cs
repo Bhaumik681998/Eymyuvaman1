@@ -4,7 +4,7 @@ using Eymyuvaman.Helper;
 using Eymyuvaman.Model;
 using Eymyuvaman.Repository;
 using Eymyuvaman.ViewModel.City;
-using Eymyuvaman.ViewModel.EvantDetails;
+using Eymyuvaman.ViewModel.EventDetails;
 using Eymyuvaman.ViewModel.SabhaSession;
 using Microsoft.EntityFrameworkCore;
 

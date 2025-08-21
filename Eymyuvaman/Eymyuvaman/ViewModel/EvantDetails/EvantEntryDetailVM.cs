@@ -1,10 +1,10 @@
-﻿namespace Eymyuvaman.ViewModel.EvantDetails
+﻿namespace Eymyuvaman.ViewModel.EventDetails
 {
-    public class EvantEntryDetailVM
+    public class EventEntryDetailVM
     {
         public int EEntryId { get; set; }
-        public int EvantId { get; set; }
-        public string? EvantName { get; set; }
+        public int EventId { get; set; }
+        public string? EventName { get; set; }
         public int EDetailId { get; set; }
         public string? FieldTitle { get; set; }
         public string? FieldType { get; set; }

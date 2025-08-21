@@ -8,9 +8,9 @@ namespace Eymyuvaman.ViewModel.SabhaSession
         [Required]
         public string? SessionTitle { get; set; }
         [Required]
-        public string? Regular_Evant { get; set; }
+        public string? Regular_Event { get; set; }
         [Required]
-        public int Regular_Evant_Id { get; set; }
+        public int Regular_Event_Id { get; set; }
         [Required]
         public DateTime? SabhaDate { get; set; }
         [Required]

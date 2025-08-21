@@ -1,6 +1,6 @@
 ﻿using Eymyuvaman.Helper;
 using Eymyuvaman.Repository;
-using Eymyuvaman.ViewModel.EvantDetails;
+using Eymyuvaman.ViewModel.EventDetails;
 using Eymyuvaman.ViewModel.SabhaSession;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,19 +10,19 @@ namespace Eymyuvaman.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class EvantController : ControllerBase
+    public class EventController : ControllerBase
     {
-        private readonly IEvantRepository _evantRepository;
-        public EvantController(IEvantRepository evantRepository)
+        private readonly IEventRepository _eventRepository;
+        public EventController(IEventRepository eventRepository)
         {
-            _evantRepository = evantRepository;
+            _eventRepository = eventRepository;
         }
 
-        #region :: Evant ::
-        [HttpPost("Add-Update-Evant")]
-        public async Task<ActionResult> AddUpdateEvant([FromBody] AddUpdateEvantVM entity)
+        #region :: Event ::
+        [HttpPost("Add-Update-Event")]
+        public async Task<ActionResult> AddUpdateEvent([FromBody] AddUpdateEventVM entity)
         {
-            var result = await _evantRepository.AddUpdateEvant(entity);
+            var result = await _eventRepository.AddUpdateEvent(entity);
             if (result.Success)
                 return Ok(result);
 
@@ -37,10 +37,10 @@ namespace Eymyuvaman.Controllers
             });
         }
 
-        [HttpGet("Get-All-Evant")]
-        public async Task<ActionResult> GetAllEvant()
+        [HttpGet("Get-All-Event")]
+        public async Task<ActionResult> GetAllEvent()
         {
-            var result = await _evantRepository.GetAllEvant();
+            var result = await _eventRepository.GetAllEvent();
             if (result.Success)
                 return Ok(result);
 
@@ -55,66 +55,10 @@ namespace Eymyuvaman.Controllers
             });
         }
 
-        [HttpGet("Get-Evant-By-Id/{EvantId}")]
-        public async Task<ActionResult> GetEvantById(int EvantId)
+        [HttpGet("Get-Event-By-Id/{EventId}")]
+        public async Task<ActionResult> GetEventById(int EventId)
         {
-            var result = await _evantRepository.GetEvantById(EvantId);
-            if (result.Success)
-                return Ok(result);
-
-            return StatusCode(StatusCodes.Status400BadRequest, new BaseResponseError
-            {
-                Success = result.Success,
-                error = new ApiError
-                {
-                    code = 400,
-                    Message = result.Message
-                }
-            });
-        }
-        #endregion
-
-        #region :: EvantArea ::
-        [HttpPost("Add-Update-Evant-Area-Detail")]
-        public async Task<ActionResult> AddUpdateEvantAreaDetail([FromBody] AddUpdateEvantAreaVM entity)
-        {
-            var result = await _evantRepository.AddUpdateEvantAreaDetail(entity);
-            if (result.Success)
-                return Ok(result);
-
-            return StatusCode(StatusCodes.Status400BadRequest, new BaseResponseError
-            {
-                Success = result.Success,
-                error = new ApiError
-                {
-                    code = 400,
-                    Message = result.Message
-                }
-            });
-        }
-
-        [HttpGet("Get-All-Evant-Area-Detail")]
-        public async Task<ActionResult> GetAllEvantAreaDetail()
-        {
-            var result = await _evantRepository.GetAllEvantAreaDetail();
-            if (result.Success)
-                return Ok(result);
-
-            return StatusCode(StatusCodes.Status400BadRequest, new BaseResponseError
-            {
-                Success = result.Success,
-                error = new ApiError
-                {
-                    code = 400,
-                    Message = result.Message
-                }
-            });
-        }
-
-        [HttpGet("Get-Evant-Area-Detail-By-Id/{EvantAreaId}")]
-        public async Task<ActionResult> GetEvantAreaDetailById(int EvantAreaId)
-        {
-            var result = await _evantRepository.GetEvantAreaDetailById(EvantAreaId);
+            var result = await _eventRepository.GetEventById(EventId);
             if (result.Success)
                 return Ok(result);
 
@@ -130,11 +74,11 @@ namespace Eymyuvaman.Controllers
         }
         #endregion
 
-        #region :: EvantDetial ::
-        [HttpPost("Add-Update-Evant-Detail")]
-        public async Task<ActionResult> AddUpdateEvantDetail([FromBody] AddUpdateEvantDetialVM entity)
+        #region :: EventArea ::
+        [HttpPost("Add-Update-Event-Area-Detail")]
+        public async Task<ActionResult> AddUpdateEventAreaDetail([FromBody] AddUpdateEventAreaVM entity)
         {
-            var result = await _evantRepository.AddUpdateEvantDetail(entity);
+            var result = await _eventRepository.AddUpdateEventAreaDetail(entity);
             if (result.Success)
                 return Ok(result);
 
@@ -149,10 +93,10 @@ namespace Eymyuvaman.Controllers
             });
         }
 
-        [HttpGet("Get-All-Evant-Detail")]
-        public async Task<ActionResult> GetAllEvantDetail()
+        [HttpGet("Get-All-Event-Area-Detail")]
+        public async Task<ActionResult> GetAllEventAreaDetail()
         {
-            var result = await _evantRepository.GetAllEvantDetail();
+            var result = await _eventRepository.GetAllEventAreaDetail();
             if (result.Success)
                 return Ok(result);
 
@@ -167,10 +111,10 @@ namespace Eymyuvaman.Controllers
             });
         }
 
-        [HttpGet("Get-Evant-Detail-By-Id/{EvantDetailId}")]
-        public async Task<ActionResult> GetEvantDetailById(int EvantDetailId)
+        [HttpGet("Get-Event-Area-Detail-By-Id/{EventAreaId}")]
+        public async Task<ActionResult> GetEventAreaDetailById(int EventAreaId)
         {
-            var result = await _evantRepository.GetEvantDetailById(EvantDetailId);
+            var result = await _eventRepository.GetEventAreaDetailById(EventAreaId);
             if (result.Success)
                 return Ok(result);
 
@@ -186,11 +130,11 @@ namespace Eymyuvaman.Controllers
         }
         #endregion
 
-        #region :: EvantEntry ::
-        [HttpPost("Add-Update-Evant-Entry-Detail")]
-        public async Task<ActionResult> AddUpdateEvantEntryDetail([FromBody] AddUpdateEvantEntryVM entity)
+        #region :: EventDetial ::
+        [HttpPost("Add-Update-Event-Detail")]
+        public async Task<ActionResult> AddUpdateEventDetail([FromBody] AddUpdateEventDetialVM entity)
         {
-            var result = await _evantRepository.AddUpdateEvantEntryDetail(entity);
+            var result = await _eventRepository.AddUpdateEventDetail(entity);
             if (result.Success)
                 return Ok(result);
 
@@ -205,10 +149,10 @@ namespace Eymyuvaman.Controllers
             });
         }
 
-        [HttpGet("Get-All-Evant-Entry-Detail")]
-        public async Task<ActionResult> GetAllEvantEntryDetail()
+        [HttpGet("Get-All-Event-Detail")]
+        public async Task<ActionResult> GetAllEventDetail()
         {
-            var result = await _evantRepository.GetAllEvantEntryDetail();
+            var result = await _eventRepository.GetAllEventDetail();
             if (result.Success)
                 return Ok(result);
 
@@ -223,10 +167,66 @@ namespace Eymyuvaman.Controllers
             });
         }
 
-        [HttpGet("Get-Evant-Entry-Detail-By-Id/{EvantEntryId}")]
-        public async Task<ActionResult> GetEvantEntryDetailById(int EvantEntryId)
+        [HttpGet("Get-Event-Detail-By-Id/{EventDetailId}")]
+        public async Task<ActionResult> GetEventDetailById(int EventDetailId)
         {
-            var result = await _evantRepository.GetEvantEntryDetailById(EvantEntryId);
+            var result = await _eventRepository.GetEventDetailById(EventDetailId);
+            if (result.Success)
+                return Ok(result);
+
+            return StatusCode(StatusCodes.Status400BadRequest, new BaseResponseError
+            {
+                Success = result.Success,
+                error = new ApiError
+                {
+                    code = 400,
+                    Message = result.Message
+                }
+            });
+        }
+        #endregion
+
+        #region :: EventEntry ::
+        [HttpPost("Add-Update-Event-Entry-Detail")]
+        public async Task<ActionResult> AddUpdateEventEntryDetail([FromBody] AddUpdateEventEntryVM entity)
+        {
+            var result = await _eventRepository.AddUpdateEventEntryDetail(entity);
+            if (result.Success)
+                return Ok(result);
+
+            return StatusCode(StatusCodes.Status400BadRequest, new BaseResponseError
+            {
+                Success = result.Success,
+                error = new ApiError
+                {
+                    code = 400,
+                    Message = result.Message
+                }
+            });
+        }
+
+        [HttpGet("Get-All-Event-Entry-Detail")]
+        public async Task<ActionResult> GetAllEventEntryDetail()
+        {
+            var result = await _eventRepository.GetAllEventEntryDetail();
+            if (result.Success)
+                return Ok(result);
+
+            return StatusCode(StatusCodes.Status400BadRequest, new BaseResponseError
+            {
+                Success = result.Success,
+                error = new ApiError
+                {
+                    code = 400,
+                    Message = result.Message
+                }
+            });
+        }
+
+        [HttpGet("Get-Event-Entry-Detail-By-Id/{EventEntryId}")]
+        public async Task<ActionResult> GetEventEntryDetailById(int EventEntryId)
+        {
+            var result = await _eventRepository.GetEventEntryDetailById(EventEntryId);
             if (result.Success)
                 return Ok(result);
 
