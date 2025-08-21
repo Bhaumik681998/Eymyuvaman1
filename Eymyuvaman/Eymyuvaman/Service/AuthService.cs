@@ -3,8 +3,10 @@ using Eymyuvaman.Data;
 using Eymyuvaman.Helper;
 using Eymyuvaman.Model;
 using Eymyuvaman.Repository;
+using Eymyuvaman.ViewModel.Auth;
 using Eymyuvaman.ViewModel.Designation;
 using Eymyuvaman.ViewModel.UserMaster;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -25,7 +27,6 @@ namespace Eymyuvaman.Service
         }
 
         #region :: LoginUser ::
-
         public async Task<BaseResponseObject<UserLoginResponseVM>> LoginUser(UserLoginVM entity)
         {
             try
@@ -175,6 +176,47 @@ namespace Eymyuvaman.Service
         //        throw;
         //    }
         //}
+        #endregion
+
+        #region :: Change Password ::
+        public async Task<BaseResponse> ChangePassword(int LoggedInUserId, ChangePasswordVM entity)
+        {
+            try
+            {
+                var userDetail = await _dbContext.Kishore.FirstOrDefaultAsync(x => x.KId == LoggedInUserId);
+                if (userDetail == null)
+                    return new BaseResponse { Success = false, Message = ResponseMessage.UserNotFound };
+
+                if (string.IsNullOrEmpty(userDetail.Password) || string.IsNullOrEmpty(userDetail.PasswordSalt))
+                    return new BaseResponse { Success = false, Message = ResponseMessage.StoredPasswordInvalid };
+
+                if (string.IsNullOrEmpty(entity.OldPassword))
+                    return new BaseResponse { Success = false, Message = ResponseMessage.StoredPasswordInvalid };
+
+                bool isOldPasswordValid = PasswordHelper.VerifyPassword(entity.OldPassword, userDetail.Password, userDetail.PasswordSalt);
+                if (!isOldPasswordValid)
+                    return new BaseResponse { Success = false, Message = ResponseMessage.OldPasswordNotMatch };
+
+                if (entity.NewPassword != entity.ConfirmPassword)
+                    return new BaseResponse { Success = false, Message = ResponseMessage.NewConfirmPasswordNotMatch };
+
+                var (newHash, newSalt) = PasswordHelper.HashPasswordWithSalt(entity.NewPassword ?? string.Empty);
+
+                userDetail.Password = newHash;
+                userDetail.PasswordSalt = newSalt;
+                userDetail.UpdatedDate = DateTime.Now;
+
+                _dbContext.Kishore.Update(userDetail);
+                await _dbContext.SaveChangesAsync();
+
+                return new BaseResponse { Success = true, Message = ResponseMessage.PasswordChangedSuccess };
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         #endregion
     }
 }

@@ -10,7 +10,7 @@ namespace Eymyuvaman.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class ZoneController : ControllerBase
+    public class ZoneController : BaseController
     {
         private readonly IZoneRepository _zoneRepository;
         public ZoneController(IZoneRepository zoneRepository)

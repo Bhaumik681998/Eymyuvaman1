@@ -18,6 +18,11 @@
 
         #region :: User Login ::
         public static string UserLogin = "Login successfully.";
+        public const string OldPasswordNotMatch = "Your old password does not match. Please try again later.";
+        public const string NewConfirmPasswordNotMatch = "New password and confirm password do not match. Please try again later.";
+        public const string PasswordChangedSuccess = "Password has been changed successfully.";
+        public const string StoredPasswordInvalid = "Stored password data is invalid.";
+        public const string OldPasswordRequired = "Old password is required.";
         #endregion
 
         #region :: Yuvak Detail ::

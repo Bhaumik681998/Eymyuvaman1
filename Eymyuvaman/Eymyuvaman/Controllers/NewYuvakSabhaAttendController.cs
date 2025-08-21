@@ -9,7 +9,7 @@ namespace Eymyuvaman.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class NewYuvakSabhaAttendController : ControllerBase
+    public class NewYuvakSabhaAttendController : BaseController
     {
         private readonly INewYuvakSabhaAttendRepository _newYuvakSabhaAttendRepository;
         public NewYuvakSabhaAttendController(INewYuvakSabhaAttendRepository newYuvakSabhaAttendRepository)

@@ -9,7 +9,7 @@ namespace Eymyuvaman.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class KishoreController : ControllerBase
+    public class KishoreController : BaseController
     {
         private readonly IKishoreRepository _kishoreRepository;
         public KishoreController(IKishoreRepository kishoreRepository)

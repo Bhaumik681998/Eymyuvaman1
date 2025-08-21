@@ -9,7 +9,7 @@ namespace Eymyuvaman.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class YuvakController : ControllerBase
+    public class YuvakController : BaseController
     {
         private readonly IYuvakRepository _yuvakRepository;
         public YuvakController(IYuvakRepository yuvakRepository)

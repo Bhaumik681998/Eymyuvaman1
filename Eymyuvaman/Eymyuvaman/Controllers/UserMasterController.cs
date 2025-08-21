@@ -10,7 +10,7 @@ namespace Eymyuvaman.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class UserMasterController : ControllerBase
+    public class UserMasterController : BaseController
     {
         private readonly IUserMasterRepository _userMasterRepository;
 

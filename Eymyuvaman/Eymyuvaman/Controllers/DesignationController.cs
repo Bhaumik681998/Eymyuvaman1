@@ -10,7 +10,7 @@ namespace Eymyuvaman.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class DesignationController : Controller
+    public class DesignationController : BaseController
     {
         private readonly IDesignationRepository _designationRepository;
         public DesignationController(IDesignationRepository designationRepository)

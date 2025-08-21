@@ -10,7 +10,7 @@ namespace Eymyuvaman.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class SabhaSessionController : ControllerBase
+    public class SabhaSessionController : BaseController
     {
         private readonly ISabhaSessionRepository _sabhaSessionRepository;
         public SabhaSessionController(ISabhaSessionRepository sabhaSessionRepository)

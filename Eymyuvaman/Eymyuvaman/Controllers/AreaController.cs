@@ -11,7 +11,7 @@ namespace Eymyuvaman.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AreaController : ControllerBase
+    public class AreaController : BaseController
     {
         private readonly IAreaRepository _areaRepository;
         public AreaController(IAreaRepository areaRepository)

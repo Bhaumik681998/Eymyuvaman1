@@ -10,7 +10,7 @@ namespace Eymyuvaman.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class EventController : ControllerBase
+    public class EventController : BaseController
     {
         private readonly IEventRepository _eventRepository;
         public EventController(IEventRepository eventRepository)
