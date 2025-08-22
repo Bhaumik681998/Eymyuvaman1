@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Eymyuvaman.Controllers
 {
@@ -31,7 +32,7 @@ namespace Eymyuvaman.Controllers
         #region :: Get LoggedIn User Designations ::
         protected List<string> GetLoggedInUserDesignations()
         {
-            var designationClaims = User.FindAll("Designation");
+            var designationClaims = User.FindAll(ClaimTypes.Role);
 
             if (designationClaims != null && designationClaims.Any())
                 return designationClaims.Select(c => c.Value).ToList();

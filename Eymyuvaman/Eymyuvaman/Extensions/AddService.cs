@@ -26,6 +26,7 @@ namespace Eymyuvaman.Extensions
             services.AddScoped<IAreaRepository, AreaService>();
             services.AddScoped<IKishoreRepository, KishoreService>();
             services.AddScoped<IDesignationRepository, DesignationService>();
+            services.AddScoped<IReportRepository, ReportService>();
         }
     }
 }
